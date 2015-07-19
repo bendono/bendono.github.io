@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Assignment 1</title>
+    <script type="text/javascript" src="../common/webgl-utils.js"></script>
+    <script type="text/javascript" src="../common/initShaders.js"></script>
+    <script type="text/javascript" src="../common/MV.js"></script>
+    <script type="text/javascript" src="01.js"></script>
+
+    <script id="vertex-shader" type="x-shader/x-vertex">
+        attribute vec4 vPosition;	// (x,y) position
+        uniform float rotation;		// Rotation
+        uniform float factor;		// Twist factor
+
+        void main()
+        {
+			// Convert degrees to radians.
+			float r = radians(rotation);
+			
+			// Extract (x,y) coordanants.
+			float x = vPosition[0];
+			float y = vPosition[1];
+			
+			// Calulate twist factor.
+			float d = factor * sqrt(x * x + y * y);
+			
+			// Generate new (x,y) coordanants.
+			float x_prime = x * cos(d * r) - y * sin(d * r);
+			float y_prime = x * sin(d * r) + y * cos(d * r);
+		
+			gl_Position = vec4(x_prime, y_prime, vPosition[2], vPosition[3]);
+        }
+    </script>
+
+    <script id="fragment-shader" type="x-shader/x-fragment">
+        precision mediump float;
+
+        void main()
+        {
+			gl_FragColor = vec4(0.0, 0.0, 1.0, 1.0);
+        }
+    </script>
+</head>
+
+<body>
+    <div id="main">
+		<p>WebGL: Assignment 01</p>
+        <div id="controls">
+			<div>
+                <label>Subdivisions</label>
+                <input id="subdivision" type="range" min="0" max="6" step="1" value="4" oninput="onSubdivide(value)" />
+                <output id="subdivide_output">4</output>
+            </div>
+            <div>
+                <label>Rotation</label>
+                <input id="rotation" type="range" min="0" max="360" step="10" value="140" oninput="onRotate(value)" />
+                <output id="rotation_output">140</output>
+            </div>
+            <div>
+                <label>Factor</label>
+                <input id="factor" type="range" min="1" max="25" step="1" value="1" oninput="onFactor(value)" />
+                <output id="factor_output">1</output>
+            </div>
+			<div>
+				<label>Render as<label>
+				<input type="radio" name="render" id="render_wire" onchange="onRender(value)" checked>Wire-frame
+				<input type="radio" name="render" id="render_fill" onchange="onRender(value)">Filled
+			</div>
+        </div>
+        <div id="canvas">
+            <canvas id="gl-canvas" width="500" height="500">Your browser does not support HTML5.</canvas>
+        </div>
+    </div>
+</body>
+</html>
