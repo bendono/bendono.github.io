@@ -1,0 +1,28 @@
+#header
+{
+	background-color: black;
+	color: white;
+	text-align: center
+	padding: 5px;
+}
+
+#controls
+{
+	display: table-cell;
+	min-width: 250px;
+	line-height: 30px;
+	background-color: #eeeeee;
+	padding: 5px;
+}
+
+#canvas
+{
+	display: table-cell;
+	width: 100%;
+	vertical-align: top;
+	/* border: 2px dotted blue; */
+}
+
+#gl-canvas
+{
+}

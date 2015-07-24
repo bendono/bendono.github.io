@@ -7,6 +7,7 @@
     <script type="text/javascript" src="../common/initShaders.js"></script>
     <script type="text/javascript" src="../common/MV.js"></script>
     <script type="text/javascript" src="01.js"></script>
+	<link rel="stylesheet" type="text/css" href="01.css" />
 
     <script id="vertex-shader" type="x-shader/x-vertex">
         attribute vec4 vPosition;	// (x,y) position
@@ -44,33 +45,35 @@
 </head>
 
 <body>
-    <div id="main">
+	<div id="header">
 		<p>WebGL: Assignment 01</p>
-        <div id="controls">
-			<div>
-                <label>Subdivisions</label>
-                <input id="subdivision" type="range" min="0" max="6" step="1" value="4" oninput="onSubdivide(value)" />
-                <output id="subdivide_output">4</output>
-            </div>
-            <div>
-                <label>Rotation</label>
-                <input id="rotation" type="range" min="0" max="360" step="10" value="140" oninput="onRotate(value)" />
-                <output id="rotation_output">140</output>
-            </div>
-            <div>
-                <label>Factor</label>
-                <input id="factor" type="range" min="1" max="25" step="1" value="1" oninput="onFactor(value)" />
-                <output id="factor_output">1</output>
-            </div>
-			<div>
-				<label>Render as<label>
-				<input type="radio" name="render" id="render_wire" onchange="onRender(value)" checked>Wire-frame
-				<input type="radio" name="render" id="render_fill" onchange="onRender(value)">Filled
-			</div>
-        </div>
-        <div id="canvas">
-            <canvas id="gl-canvas" width="500" height="500">Your browser does not support HTML5.</canvas>
-        </div>
-    </div>
+	</div>
+
+	<div id="controls">
+		<div>
+			<label>Subdivisions</label>
+            <input id="subdivision" type="range" min="0" max="6" step="1" value="4" oninput="onSubdivide(value)" />
+            <output id="subdivide_output">4</output>
+		</div>
+		<div>
+			<label>Rotation</label>
+			<input id="rotation" type="range" min="0" max="360" step="10" value="140" oninput="onRotate(value)" />
+            <output id="rotation_output">140</output>
+		</div>
+        <div>
+			<label>Factor</label>
+			<input id="factor" type="range" min="1" max="25" step="1" value="1" oninput="onFactor(value)" />
+			<output id="factor_output">1</output>
+		</div>
+		<div>
+			<label>Render as<label>
+			<input type="radio" name="render" id="render_wire" onchange="onRender(value)" checked>Wire-frame
+			<input type="radio" name="render" id="render_fill" onchange="onRender(value)">Filled
+		</div>
+	</div>
+	   
+	<div id="canvas">
+		<canvas id="gl-canvas" width="500" height="500">Your browser does not support HTML5.</canvas>
+	</div>
 </body>
 </html>

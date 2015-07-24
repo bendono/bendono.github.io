@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Assignment 2</title>
+	<script type="text/javascript" src="../common/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="../common/webgl-utils.js"></script>
+    <script type="text/javascript" src="../common/MV.js"></script>
+    <script type="text/javascript" src="02.js"></script>
+	<link rel="stylesheet" type="text/css" href="02.css" />
+
+    <script id="vertex-shader" type="x-shader/x-vertex">
+		attribute vec2 position;	// Location of vertices.
+		uniform vec2 resolution;	// Need to normalize to clipspace.
+		
+		void main()
+		{
+			// Clipspace is (-1, 1), so convert from pixels o 0.0-1.0.
+			vec2 zeroToOne = position / resolution; 
+			
+			// Convert from 0->1 to 0->2.
+			vec2 zeroToTwo = zeroToOne * 2.0;
+			
+			// Convert from 0->2 to -1->+1
+			vec2 clipSpace = zeroToTwo - 1.0;
+			
+			// Flip the y-concordant.
+			gl_Position = vec4(clipSpace * vec2(1, -1), 0, 1);
+		}
+    </script>
+
+    <script id="fragment-shader" type="x-shader/x-fragment">		
+		precision mediump float;
+		uniform vec4 color;
+		
+		void main()
+		{
+			gl_FragColor = color;
+		}
+    </script>
+</head>
+<body>
+	<div id="header">
+		<p>WebGL: Assignment 02</p>
+	</div>
+	
+	<div id="controls">
+		<div>
+			<label for="color">Color</label>
+			<select id="color" name="color" onchange="onColorChange(this)">
+				<option value="1,0,0">Red</option>
+				<option value="0,1,0">Green</option>
+				<option value="0,0,1">Blue</option>
+			</select>
+		</div>
+        <div>
+			<label>Pen width</label>
+            <input id="penWidth" type="range" min="1" max="100" step="1" value="10" oninput="onPenWidth(value)" />
+            <output id="penwidth_output">10</output>
+        </div>
+		<div>
+			<button onclick="onClear()">Clear</button>
+		</div>
+    </div>
+	
+    <div id="canvas">
+		<canvas id="gl-canvas" width="600" height="600">Your browser does not support HTML5.</canvas>
+    </div>
+</body>
+</html>
